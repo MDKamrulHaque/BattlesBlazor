@@ -85,6 +85,10 @@
 @code {
 
     UserRegister user = new UserRegister();
+    protected override async Task OnInitializedAsync()
+    {
+        await UnitService.LoadUnitAsync();
+    }
 
     void HandleRegistration()
     {
