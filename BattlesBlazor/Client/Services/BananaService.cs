@@ -37,6 +37,8 @@ namespace BattlesBlazor.Client.Services
             Bananas = await _http.GetFromJsonAsync<int>("api/user/getbananas");
             BananasChanged();
         }
+
+      
     }
 
 }
