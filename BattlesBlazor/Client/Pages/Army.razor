@@ -39,5 +39,6 @@
     protected override async Task OnInitializedAsync()
     {
         await UnitService.LoadUnitAsync();
+        await UnitService.LoadUserUnitsAsync();
     }
     }
