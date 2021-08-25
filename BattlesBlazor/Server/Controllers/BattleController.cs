@@ -20,14 +20,13 @@ namespace BattlesBlazor.Server.Controllers
         private readonly DataContext _context;
         private readonly IUtilityService _utilityService;
 
-        public BattleController( DataContext context, IUtilityService utilityService)
+        public BattleController(DataContext context, IUtilityService utilityService)
         {
             _context = context;
             _utilityService = utilityService;
         }
 
         [HttpPost]
-        
         public async Task<IActionResult> StartBattle([FromBody] int opponentId)
         {
             var attacker = await _utilityService.GetUser();
@@ -39,16 +38,16 @@ namespace BattlesBlazor.Server.Controllers
 
             var result = new BattleResult();
             await Fight(attacker, opponent, result);
-           
+
             return Ok(result);
         }
 
         private async Task Fight(User attacker, User opponent, BattleResult result)
         {
             var attackerArmy = await _context.UserUnits
-                 .Where(u => u.UserId == attacker.Id && u.HitPoints > 0)
-                 .Include(u => u.Unit)
-                 .ToListAsync();
+                .Where(u => u.UserId == attacker.Id && u.HitPoints > 0)
+                .Include(u => u.Unit)
+                .ToListAsync();
             var opponentArmy = await _context.UserUnits
                 .Where(u => u.UserId == opponent.Id && u.HitPoints > 0)
                 .Include(u => u.Unit)
@@ -87,11 +86,12 @@ namespace BattlesBlazor.Server.Controllers
             var damage =
                 new Random().Next(randomAttacker.Unit.Attack) - new Random().Next(randomOpponent.Unit.Defense);
             if (damage < 0) damage = 0;
-            if(damage <= randomOpponent.HitPoints)
+
+            if (damage <= randomOpponent.HitPoints)
             {
                 randomOpponent.HitPoints -= damage;
                 result.Log.Add(
-                    $"{attacker.Username}'s {randomAttacker.Unit.Title} attacks" +
+                    $"{attacker.Username}'s {randomAttacker.Unit.Title} attacks " +
                     $"{opponent.Username}'s {randomOpponent.Unit.Title} with {damage} damage.");
                 return damage;
             }
@@ -122,17 +122,20 @@ namespace BattlesBlazor.Server.Controllers
                 opponent.Defeats++;
                 attacker.Bananas += opponentDamageSum;
                 opponent.Bananas += attackerDamageSum * 10;
-             }
+            }
             else
             {
                 attacker.Defeats++;
                 opponent.Victories++;
-                attacker.Bananas += opponentDamageSum *10;
+                attacker.Bananas += opponentDamageSum * 10;
                 opponent.Bananas += attackerDamageSum;
             }
 
+            
+
             await _context.SaveChangesAsync();
         }
-        
     }
+        
+    
 }
