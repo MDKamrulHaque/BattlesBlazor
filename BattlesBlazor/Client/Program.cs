@@ -30,6 +30,7 @@ namespace BattlesBlazor.Client
             builder.Services.AddOptions();
             builder.Services.AddAuthorizationCore();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<ILeaderboardService, LeaderboardService>();
 
 
 
