@@ -32,7 +32,10 @@ namespace BattlesBlazor.Server.Controllers
                     DateOfBirth =request.DateOfBirth,
                     IsConfirmed = request.IsConfirmed
 
-                }, request.Password );
+                }, 
+                
+                request.Password,
+                request.StartUnitId);
 
             if (!response.Success)
             {

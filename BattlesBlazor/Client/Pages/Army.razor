@@ -29,11 +29,18 @@
         </tr>
     }
 
-</table>  }
-            else
-            {
-                <span> Loading Units....</span>
-            }
+</table> 
+<center>
+    <button class="btn btn-warning" @onclick="ReviveArmy"> Reviver Your Army for 1000 Bananas</button>
+</center>
+
+
+
+ }
+  else
+  {
+ <span> Loading Units....</span>
+  }
 
 @code {
     protected override async Task OnInitializedAsync()
@@ -41,4 +48,10 @@
         await UnitService.LoadUnitAsync();
         await UnitService.LoadUserUnitsAsync();
     }
+
+    private async Task ReviveArmy()
+    {
+        await UnitService.ReviveArmy();
+    }
+
     }
